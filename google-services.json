@@ -1,0 +1,103 @@
+{
+  "project_info": {
+    "project_number": "487872900718",
+    "firebase_url": "https://kingofstairs-a7b14.firebaseio.com",
+    "project_id": "kingofstairs-a7b14",
+    "storage_bucket": "kingofstairs-a7b14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487872900718:android:137d0ed1093a2343",
+        "android_client_info": {
+          "package_name": "kr.co.photointerior.kosw.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487872900718-1rjggeg9868kn6k7qmoq2eqici4igo6t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "044e296a74bdf9f80981b078e94d78dccdc04ef6"
+          }
+        },
+        {
+          "client_id": "487872900718-28so2cje67otcilsuer6n5putc8ejkqk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "6b7a6333c2dac7ce1b54b7afba74de2deeb0d654"
+          }
+        },
+        {
+          "client_id": "487872900718-c173l71ab952diu7hu8dhqnsn50uuc3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "5765825008a236a1078c619686793294c57aae3c"
+          }
+        },
+        {
+          "client_id": "487872900718-c7sa9tknas2bsrenopkai8tk6ussjphs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "be1bdec0aa74b4dcb079943e70528096cca985f8"
+          }
+        },
+        {
+          "client_id": "487872900718-fdntkfm6uj0np6tmh7ohlacs632kkdum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "c8bf904e04874aba9b2e95ab74567f4313d65e3e"
+          }
+        },
+        {
+          "client_id": "487872900718-jhh00if6r88jr5oneg34v191kmjh3gn5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "694022741520d0018462688ba3a5f5fdfc44a7d5"
+          }
+        },
+        {
+          "client_id": "487872900718-lan019sru9r0ltl3tsfj7iho396qr9hf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.photointerior.kosw.app",
+            "certificate_hash": "e7ea1bd1a5cf3f63756cf4b36412a304a5d4a41f"
+          }
+        },
+        {
+          "client_id": "487872900718-p98rqfqcfj7t2o9porbvf0bsksk9ckpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYnYGclYbwzos7V02uNLHOMvHprnd9heQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487872900718-p98rqfqcfj7t2o9porbvf0bsksk9ckpe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "487872900718-ge8ic1h3e06aphojplbtvlf1p80dio8b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kr.co.photointerior.app.kosw"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

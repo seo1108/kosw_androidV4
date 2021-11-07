@@ -1,0 +1,171 @@
+import java.text.SimpleDateFormat
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.google.gms:google-services:4.0.1'
+        classpath 'io.fabric.tools:gradle:1.+'
+        classpath "com.bugsnag:bugsnag-android-gradle-plugin:4.7.5"
+    }
+}
+
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: "com.bugsnag.android.gradle"
+
+android {
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    compileSdkVersion 30
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "kr.co.photointerior.kosw.app"
+        minSdkVersion 21
+//        targetSdkVersion 28
+        versionCode 43007
+        versionName "4.3.7"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file("./kosw.keystore")
+            storePassword "kosw!3@4"
+            keyAlias "photointerior"
+            keyPassword "kosw!3@4"
+        }
+//        config{
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
+//        }
+    }
+
+    buildTypes {
+        release {
+            shrinkResources false
+            zipAlignEnabled true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == "release") {
+            variant.outputs.all { output ->
+                def df = new SimpleDateFormat("yyMMddHHmm")
+                df.setTimeZone(TimeZone.getDefault())
+
+                def file = output.outputFile
+
+                //def newName = "${defaultConfig.applicationId}_${defaultConfig.versionName}-${df.format(new Date())}.apk"
+                def newName = "ks_${defaultConfig.versionName}-${df.format(new Date())}.apk"
+                //outputFileName = new File(file.parent, newName)
+                outputFileName = new File("../release", newName)
+                //System.out.print(outputFileName)
+            }
+        }
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-v4:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-media-compat:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:animated-vector-drawable:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:customtabs:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation "com.android.support:design:28.0.0"
+    //noinspection GradleCompatible
+    implementation "com.android.support:cardview-v7:28.0.0"
+
+    implementation 'com.google.firebase:firebase-messaging:17.3.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-crash:16.0.1'
+    //noinspection OutdatedLibrary
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+
+    implementation 'pub.devrel:easypermissions:1.3.0'
+    implementation 'com.blankj:utilcode:1.30.5'
+    implementation 'com.github.pwittchen:infinitescroll:0.0.1'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.14.9'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.9.0') {
+        exclude group: 'glide-parent'
+    }
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation 'org.altbeacon:android-beacon-library:2.14'
+    implementation 'com.squareup:otto:1.3.7'
+    implementation "me.leolin:ShortcutBadger:1.1.21@aar"
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-places:15.0.1'
+
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.android.gms:play-services-fitness:15.0.0'
+    implementation "com.bugsnag:bugsnag-android:4.18.0-beta01"
+
+    implementation "me.mvdw.recyclerviewmergeadapter:recyclerviewmergeadapter:2.1.0"
+
+/*
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    annotationProcessor 'com.jakewharton:butterknife:7.0.1'
+
+    // 카카오 로그인 sdk를 사용하기 위해 필요.
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+    implementation name: 'util-1.27.0', ext: 'aar'
+    implementation name: 'common-1.27.0', ext: 'aar'
+    implementation name: 'auth-1.27.0', ext: 'aar'
+    implementation name: 'network-1.27.0', ext: 'aar'
+    implementation name: 'usermgmt-1.27.0', ext: 'aar'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+*/
+
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+}
+
+apply plugin: 'com.google.gms.google-services'

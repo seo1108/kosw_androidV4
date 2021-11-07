@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:background="@color/colorWhite"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_top_arrow" />
+
+        <ImageView
+            android:id="@+id/btn_config"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_top_set"
+            android:visibility="invisible"/>
+
+        <kr.co.photointerior.kosw.widget.KoswTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="56sp"
+            android:gravity="center"
+            android:text="카페명"
+            android:textColor="@color/color_1a1a1a"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:orientation="vertical">
+
+            <kr.co.photointerior.kosw.widget.KoswTextView
+                android:id="@+id/txt_cafename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:text="카페이름"
+                android:textAlignment="viewStart"
+                android:textColor="#000000"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <kr.co.photointerior.kosw.widget.KoswEditText
+                android:id="@+id/txt_cafedesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="카페 설명"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_14"
+                android:background="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_cafename" />
+
+            <kr.co.photointerior.kosw.widget.KoswTextView
+                android:id="@+id/txt_open_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="개설일"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_cafedesc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <kr.co.photointerior.kosw.widget.KoswTextView
+                    android:id="@+id/txt_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="1.0"
+                    android:text="멤버"
+                    android:textColor="#000"
+                    android:textSize="@dimen/sp_14" />
+
+                <kr.co.photointerior.kosw.widget.KoswTextView
+                    android:id="@+id/txt_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="2.0"
+                    android:text="관리자"
+                    android:textColor="#000"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <kr.co.photointerior.kosw.widget.KoswTextView
+                android:id="@+id/txt_cafe_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_weight="1"
+                android:text="@string/txt_privacy_open_exp"
+                android:textColor="@color/color_ed4524"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <kr.co.photointerior.kosw.widget.KoswButton
+                android:id="@+id/btn_join_cafe"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_border_1a1a1a"
+                android:text="@string/txt_cafe_join_btn"
+                android:textColor="@color/text_btn_click"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintTop_toBottomOf="@+id/sv" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/button_border_bottom_dot_cccccc"
+                    />
+
+
+            <kr.co.photointerior.kosw.widget.KoswTextView
+                android:id="@+id/txt_notice_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+             <LinearLayout
+                 android:id="@+id/ll_notice_detail"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="32dp"
+                 android:layout_marginEnd="32dp"
+                 android:orientation="horizontal">
+                <kr.co.photointerior.kosw.widget.KoswTextView
+                    android:id="@+id/txt_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:text=""
+                    android:textColor="#000"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="@dimen/sp_14" />
+
+                <kr.co.photointerior.kosw.widget.KoswTextView
+                    android:id="@+id/txt_notice_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:paddingTop="5dp"
+                    android:text="[+더보기]"
+                    android:textColor="#000"
+                    android:singleLine="true"
+                    android:textSize="@dimen/sp_14" />
+             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/top_btn_box"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/btn_config">
+
+                <Button
+                    android:id="@+id/btn_notice"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".3333"
+                    android:background="@color/color_cccccc"
+                    android:gravity="center"
+                    android:text="@string/txt_cafe_notice"
+                    android:textColor="@color/color_545454"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_daily"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="1dp"
+                    android:layout_weight=".3333"
+                    android:background="@color/color_cccccc"
+                    android:gravity="center"
+                    android:text="@string/txt_daily_ranking"
+                    android:textColor="@color/color_545454"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_weekly"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="1dp"
+                    android:layout_weight=".3333"
+                    android:background="@color/color_cccccc"
+                    android:gravity="center"
+                    android:text="@string/txt_weekly_ranking"
+                    android:textColor="@color/color_545454"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_monthly"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="1dp"
+                    android:layout_weight=".3333"
+                    android:background="@color/color_cccccc"
+                    android:gravity="center"
+                    android:text="@string/txt_monthly_ranking"
+                    android:textColor="@color/color_545454"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/button_border_bottom_dot_cccccc">
+
+                    <kr.co.photointerior.kosw.widget.KoswEditText
+                        android:id="@+id/bbs_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="게시글"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_weight="1.0"
+                        android:textSize="@dimen/sp_15" />
+
+                    <ImageView
+                        android:id="@+id/img_post"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:src="@drawable/ic_add_post" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/notice_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_ranking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/box_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/top_btn_box"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:paddingEnd="@dimen/dp_20"
+                    android:paddingStart="@dimen/dp_20"
+                    android:background="@drawable/button_border_bottom_cccccc">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/box_spinner_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/top_btn_box"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:paddingEnd="@dimen/dp_20"
+                    android:paddingStart="@dimen/dp_20"
+                    android:background="@drawable/button_border_bottom_cccccc"
+                    >
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_44"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/button_border_bottom_cccccc"
+                        android:gravity="center_vertical|center"
+                        android:orientation="horizontal">
+                        <!-- 개인, 그룹랭킹 1,2,3위 이외와 제일 상단 내 랭킹 row -->
+                        <TextView
+                            android:id="@+id/tv_ranking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:gravity="center"
+                            android:text="랭킹"
+                            android:textColor="@color/color_1a1a1a"
+                            android:textSize="@dimen/sp_15"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".5"
+                                android:gravity="center"
+                                android:text="닉네임"
+                                android:textColor="@color/color_1a1a1a"
+                                android:textSize="@dimen/sp_15"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_depart"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".5"
+                                android:gravity="center"
+                                android:text="분류"
+                                android:textColor="@color/color_1a1a1a"
+                                android:textSize="@dimen/sp_15"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_amount"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_6"
+                            android:gravity="center_vertical|right"
+                            android:text="층수"
+                            android:textColor="@color/color_1a1a1a"
+                            android:textSize="@dimen/sp_15"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:scrollbars="none"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
