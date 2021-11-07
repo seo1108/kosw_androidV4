@@ -34,6 +34,10 @@
         android:name="android.hardware.bluetooth_le"
         android:required="true"/>
 
+    <queries>
+        <package android:name="com.google.android.apps.fitness" />
+    </queries>
+
     <application
         android:name="kr.co.photointerior.kosw.global.KoswApp"
         android:allowBackup="true"

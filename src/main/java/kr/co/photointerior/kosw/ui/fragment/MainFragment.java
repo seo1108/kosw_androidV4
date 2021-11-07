@@ -235,7 +235,7 @@ public class MainFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         SharedPreferences prefr = mActivity.getSharedPreferences("fitnessauth", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefr.edit();
-        Log.d("KKKKKKKKKKKKKK", requestCode + "_" + Activity.RESULT_OK + "_" + requestCode + "_" + REQUEST_OAUTH_REQUEST_CODE);
+        Log.d("KKKKKKKKKKKKKK", "REQUEST RESULT" + requestCode + "_" + Activity.RESULT_OK + "_" + requestCode + "_" + REQUEST_OAUTH_REQUEST_CODE);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_OAUTH_REQUEST_CODE) {
                 // 성공시
@@ -918,9 +918,10 @@ public class MainFragment extends BaseFragment {
                         Log.d("DDDDDDDDDDDDDDD", prefr.getBoolean("isSuccess", true) + "");
 
                         if (getInstallPackage("com.google.android.apps.fitness")) {
+                            Log.d("DDDDDDDDDDDDDDD", "설치됨");
                             tv_stepCount.setOnClickListener(null);
                             if (prefr.getBoolean("isSuccess", true)) {
-
+                                Log.d("DDDDDDDDDDDDDDD", "권한있음");
                                 SharedPreferences.Editor editor = prefr.edit();
                                 editor.putBoolean("isSuccess", false);
                                 editor.commit();
@@ -930,10 +931,10 @@ public class MainFragment extends BaseFragment {
                                         FitnessOptions.builder()
                                                 /*.addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
                                                 .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)*/
-
-
                                                 .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
                                                 .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+
+
                                                 //.addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
                                                 //.addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
                                                 .build();
@@ -941,7 +942,7 @@ public class MainFragment extends BaseFragment {
                                 if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(mActivity), fitnessOptions)) {
                                     Log.d("KKKKKKKKKKKKKK", "GoogleSignIn has not Permissions");
                                     GoogleSignIn.requestPermissions(
-                                            getActivity(),
+                                            mActivity,
                                             REQUEST_OAUTH_REQUEST_CODE,
                                             GoogleSignIn.getLastSignedInAccount(mActivity),
                                             fitnessOptions);
@@ -989,6 +990,7 @@ public class MainFragment extends BaseFragment {
                                     }
                                 }
                             } else if (!prefr.getBoolean("isSuccess", true)) {
+                                Log.d("DDDDDDDDDDDDDDD", "권한없음");
                                 if (!"".equals(mEventUrl)) {
                                     openEventDialog(mEventUrl);
                                 }
@@ -1064,7 +1066,18 @@ public class MainFragment extends BaseFragment {
 
     public boolean getInstallPackage(String packagename) {
 
-        String mpackagename = packagename;
+        try {
+            Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage(packagename);
+
+            if (null == intent) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        /*String mpackagename = packagename;
 
         try {
             PackageManager pm = getActivity().getPackageManager();
@@ -1076,7 +1089,7 @@ public class MainFragment extends BaseFragment {
         } catch (PackageManager.NameNotFoundException e) {
             Log.d(TAG, "패키지가 설치 되어 있지 않습니다.");
             return false;
-        }
+        }*/
     }
 
 

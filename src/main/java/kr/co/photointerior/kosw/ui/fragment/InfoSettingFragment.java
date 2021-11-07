@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.style.ForegroundColorSpan;
@@ -42,6 +43,7 @@ import kr.co.photointerior.kosw.ui.InfoSettingProfileActivity;
 import kr.co.photointerior.kosw.ui.MainActivity;
 import kr.co.photointerior.kosw.ui.NoticeEventActivity;
 import kr.co.photointerior.kosw.ui.ProvisionActivity;
+import kr.co.photointerior.kosw.ui.WebviewActivity;
 import kr.co.photointerior.kosw.ui.dialog.DialogCommon;
 import kr.co.photointerior.kosw.utils.AUtil;
 import kr.co.photointerior.kosw.utils.AbstractAcceptor;
@@ -157,7 +159,11 @@ public class InfoSettingFragment extends BaseFragment {
                 break;
             case R.id.btn_help://도움말 보기
                 //openWebBrowser(Env.UrlPath.PROVISION.url(), false);
-                mActivity.callActivity(HelpActivity.class, false);
+                /*mActivity.callActivity(HelpActivity.class, false);*/
+                Bundle bu = new Bundle();
+                bu.putSerializable("url", "http://kingofthestairs.com/api/help/help_new.html");
+                mActivity.callActivity(WebviewActivity.class, bu,false);
+
                 break;
             case R.id.btn_menu_notice://이용약관 보기
                 //openWebBrowser(Env.UrlPath.PROVISION.url(), false);
