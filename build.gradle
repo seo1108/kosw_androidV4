@@ -148,6 +148,8 @@ dependencies {
     implementation "com.bugsnag:bugsnag-android:4.18.0-beta01"
 
     implementation "me.mvdw.recyclerviewmergeadapter:recyclerviewmergeadapter:2.1.0"
+    
+    implementation 'com.firebase:firebase-jobdispatcher:0.6.0'
 
 /*
     implementation 'com.jakewharton:butterknife:7.0.1'
