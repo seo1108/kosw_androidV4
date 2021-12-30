@@ -16,10 +16,12 @@ import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
@@ -62,6 +64,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import kr.co.photointerior.kosw.R;
@@ -155,6 +158,8 @@ public class MainFragment extends BaseFragment {
 
     private String mSelectedCafeSeq = "";
     private String mSelectedCafename = "";
+    private String mSelectedCafeTotal = "0";
+    private String mSelectedCafeTotalAmt = "0";
 
     private String mEventUrl = "";
 
@@ -495,12 +500,18 @@ public class MainFragment extends BaseFragment {
 
                                     mSelectedCafeSeq = cafes.get(0).getCafeseq();
                                     mSelectedCafename = cafes.get(0).getCafename();
+                                    mSelectedCafeTotal = cafes.get(0).getTotal();
+                                    mSelectedCafeTotalAmt = cafes.get(0).getTotalamt();
 
                                     SharedPreferences prefr = getActivity().getSharedPreferences("lastSelectedCafe", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = prefr.edit();
                                     editor.putString("cafeseq", mSelectedCafeSeq);
                                     editor.putString("cafename", mSelectedCafename);
+                                    editor.putString("cafetotal", mSelectedCafeTotal);
+                                    editor.putString("cafetotalamt", mSelectedCafeTotalAmt);
                                     editor.commit();
+
+                                    updateMainText();
                                 }
                             }
 
@@ -531,6 +542,8 @@ public class MainFragment extends BaseFragment {
 
                             title.setVisibility(View.GONE);
                         }
+
+
                     } else {
                         Picasso.with(mActivity)
                                 .load(R.drawable.ic_logo)
@@ -602,15 +615,24 @@ public class MainFragment extends BaseFragment {
         if (!"".equals(mSelectedCafeSeq) && !mSelectedCafeSeq.equals(prefr.getString("cafeseq", ""))) {
             // 프래그먼트 리플래쉬
             mSelectedCafeSeq = prefr.getString("cafeseq", "");
+            mSelectedCafename = prefr.getString("cafename", "");
+            mSelectedCafeTotal = prefr.getString("cafetotal", "0");
+            mSelectedCafeTotalAmt = prefr.getString("cafetotalamt", "0");
+
             mActivity.displayFragment(Env.FragmentType.HOME);
+            updateMainText();
+
+            Log.d("FFFFFFFF", "RESUME");
+
         } else {
             setMainScreenCharacter();
             //requestCurrentNoti();
             isNoAny = false;
+
             requestToServer();
         }
 
-//        requestToServer();
+
 
         /*if(isMyServiceRunning(StepCounterService.class)) {
             // 자동측정중이면
@@ -703,6 +725,7 @@ public class MainFragment extends BaseFragment {
 
         if (mActivity != null) {
             mActivity.runOnUiThread(new Runnable() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void run() {
                     if (push != null) {//푸시로 수신한 데이터
@@ -786,32 +809,47 @@ public class MainFragment extends BaseFragment {
                             nick = user.getNickName();
                         }
 
-                        TextView tv_tree2 = getTextView(R.id.txt_tree_two);
-                        DecimalFormat formatter = new DecimalFormat("#,###,###");
-                        String userCnt = formatter.format(mainData.getUserCnt());
-                        tv_tree2.setText(user.getNickName() + "님과 함께 " + userCnt + "명이");
-                        Spannable spanText2 = new SpannableString(tv_tree2.getText().toString());
-                        spanText2.setSpan(new ForegroundColorSpan(Color.BLACK), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        spanText2.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        spanText2.setSpan(new RelativeSizeSpan(1.2f), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        SharedPreferences prefr = mActivity.getSharedPreferences("lastSelectedCafe", MODE_PRIVATE);
+                        mSelectedCafeSeq = prefr.getString("cafeseq", "");
+                        mSelectedCafename = prefr.getString("cafename", "");
+                        mSelectedCafeTotal = prefr.getString("cafetotal", "0");
+                        mSelectedCafeTotalAmt = prefr.getString("cafetotalamt", "0");
 
-                        tv_tree2.setText(spanText2, TextView.BufferType.SPANNABLE);
-
-                        TextView tv_tree3 = getTextView(R.id.txt_tree_three);
-                        String actAmt = formatter.format((float) mainData.getActAmt() * 16.6 / 1000.0 * 0.42 * 0.27);
-                        tv_tree3.setText(actAmt + "그루의 나무를 심었고");
-                        //Spannable spanText3 = new SpannableString(tv_tree3.getText().toString()) ;
-                        //spanText3.setSpan(new ForegroundColorSpan(Color.BLACK),0,actAmt.length() ,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        //spanText3.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),0,actAmt.length() ,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        //spanText3.setSpan(new RelativeSizeSpan(1.2f),0,actAmt.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        //tv_tree3.setText(spanText3,TextView.BufferType.SPANNABLE);
-
-                        TextView tv_tree4 = getTextView(R.id.txt_tree_four);
-                        String ton = formatter.format((float) mainData.getActAmt() * 16.6 / 100000.0 * 0.42);
-                        ton = String.format("%.2f", (float) mainData.getActAmt() * 16.6 / 100000.0 * 0.42);
-                        tv_tree4.setText(ton + "kg 의 이산화탄소를");
+                        if (null == mSelectedCafeTotal || "".equals(mSelectedCafeTotal)) mSelectedCafeTotal = "0";
+                        if (null == mSelectedCafeTotalAmt || "".equals(mSelectedCafeTotalAmt)) mSelectedCafeTotalAmt = "0";
 
 
+                        if (null == prefr || Objects.isNull(prefr) || "".equals(mSelectedCafeSeq) || "0".equals(mSelectedCafeTotal) || "0".equals(mSelectedCafeTotalAmt))
+                        {
+                            TextView tv_tree2 = getTextView(R.id.txt_tree_two);
+                            DecimalFormat formatter = new DecimalFormat("#,###,###");
+                            String userCnt = formatter.format(mainData.getUserCnt());
+                            tv_tree2.setText(user.getNickName() + "님과 함께 " + userCnt + "명이");
+                            Spannable spanText2 = new SpannableString(tv_tree2.getText().toString());
+                            spanText2.setSpan(new ForegroundColorSpan(Color.BLACK), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spanText2.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            spanText2.setSpan(new RelativeSizeSpan(1.2f), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            tv_tree2.setText(spanText2, TextView.BufferType.SPANNABLE);
+
+                            TextView tv_tree3 = getTextView(R.id.txt_tree_three);
+                            String actAmt = formatter.format((float) mainData.getActAmt() * 16.6 / 1000.0 * 0.42 * 0.27);
+                            tv_tree3.setText(actAmt + "그루의 나무를 심었고");
+                            //Spannable spanText3 = new SpannableString(tv_tree3.getText().toString()) ;
+                            //spanText3.setSpan(new ForegroundColorSpan(Color.BLACK),0,actAmt.length() ,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            //spanText3.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),0,actAmt.length() ,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            //spanText3.setSpan(new RelativeSizeSpan(1.2f),0,actAmt.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            //tv_tree3.setText(spanText3,TextView.BufferType.SPANNABLE);
+
+                            TextView tv_tree4 = getTextView(R.id.txt_tree_four);
+                            String ton = formatter.format((float) mainData.getActAmt() * 16.6 / 100000.0 * 0.42);
+                            ton = String.format("%.2f", (float) mainData.getActAmt() * 16.6 / 100000.0 * 0.42);
+                            tv_tree4.setText(ton + "kg 의 이산화탄소를");
+                        }
+                        else
+                        {
+                            updateMainText();
+                        }
                         user.setBuild_floor_amt(mainData.getBuild_floor_amt());
 
                         if (mainData.getGgrList() != null) {
@@ -1062,6 +1100,53 @@ public class MainFragment extends BaseFragment {
         });
 
 
+    }
+
+    public void updateMainText()
+    {
+        SharedPreferences prefr = mActivity.getSharedPreferences("lastSelectedCafe", MODE_PRIVATE);
+
+
+        mSelectedCafeSeq = prefr.getString("cafeseq", "");
+        mSelectedCafename = prefr.getString("cafename", "");
+        mSelectedCafeTotal = prefr.getString("cafetotal", "0");
+        mSelectedCafeTotalAmt = prefr.getString("cafetotalamt", "0");
+
+        if (null == mSelectedCafeTotal || "".equals(mSelectedCafeTotal)) mSelectedCafeTotal = "0";
+        if (null == mSelectedCafeTotalAmt || "".equals(mSelectedCafeTotalAmt)) mSelectedCafeTotalAmt = "0";
+
+        AppUserBase user = DataHolder.instance().getAppUserBase();
+        // 나무심기
+
+        String nick = "";
+        if (user.getNickName().length() > 23) {
+            nick = user.getNickName().substring(0, 20) + "...";
+        } else {
+            nick = user.getNickName();
+        }
+
+        TextView tv_tree1 = getTextView(R.id.txt_tree_one);
+        tv_tree1.setText("지구를 살리는 " + mSelectedCafename);
+
+        TextView tv_tree2 = getTextView(R.id.txt_tree_two);
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String userCnt = formatter.format(Integer.parseInt(mSelectedCafeTotal));
+        tv_tree2.setText(user.getNickName() + "님과 함께 " + userCnt + "명이");
+        Spannable spanText2 = new SpannableString(tv_tree2.getText().toString());
+        spanText2.setSpan(new ForegroundColorSpan(Color.BLACK), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanText2.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanText2.setSpan(new RelativeSizeSpan(1.2f), 0, nick.length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tv_tree2.setText(spanText2, TextView.BufferType.SPANNABLE);
+
+        TextView tv_tree3 = getTextView(R.id.txt_tree_three);
+        String actAmt = formatter.format((float) Integer.parseInt(mSelectedCafeTotalAmt) * 16.6 / 1000.0 * 0.42 * 0.27);
+        tv_tree3.setText(actAmt + "그루의 나무를 심었고");
+
+        TextView tv_tree4 = getTextView(R.id.txt_tree_four);
+        String ton = formatter.format((float) Integer.parseInt(mSelectedCafeTotalAmt) * 16.6 / 100000.0 * 0.42);
+        ton = String.format("%.2f", (float)  Integer.parseInt(mSelectedCafeTotalAmt) * 16.6 / 100000.0 * 0.42);
+        tv_tree4.setText(ton + "kg 의 이산화탄소를");
     }
 
     public boolean getInstallPackage(String packagename) {

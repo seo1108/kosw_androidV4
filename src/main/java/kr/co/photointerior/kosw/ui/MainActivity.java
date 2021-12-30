@@ -2072,6 +2072,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                                 );
                                 SharedPreferences.Editor editor = prefr.edit();
                                 editor.putString("cafeseq", mCMList.getResult().get(0).getCafeseq());
+                                editor.putString("cafename", mCMList.getResult().get(0).getCafename());
+                                editor.putString("cafetotal", mCMList.getResult().get(0).getTotal());
+                                editor.putString("cafetotalamt", mCMList.getResult().get(0).getTotalamt());
                                 editor.commit();
                                 getCafeDetail();
                             }

@@ -39,6 +39,8 @@ public class CafeChangeActivity extends BaseUserActivity {
 
     private String mSelectedCafeSeq = "";
     private String mSelectedCafeName = "";
+    private String mSelectedCafeTotal = "";
+    private String mSelectedCafeTotalAmt = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,8 @@ public class CafeChangeActivity extends BaseUserActivity {
         SharedPreferences.Editor editor = prefr.edit();
         editor.putString("cafeseq", mSelectedCafeSeq);
         editor.putString("cafename", mSelectedCafeName);
+        editor.putString("cafetotal", mSelectedCafeTotal);
+        editor.putString("cafetotalamt", mSelectedCafeTotalAmt);
         editor.commit();
 
         finish();
@@ -138,6 +142,8 @@ public class CafeChangeActivity extends BaseUserActivity {
                             mCafeList.get(0).setSelected(true);
                             mSelectedCafeSeq = mCafeList.get(0).getCafeseq();
                             mSelectedCafeName = mCafeList.get(0).getCafename();
+                            mSelectedCafeTotal = mCafeList.get(0).getTotal();
+                            mSelectedCafeTotalAmt = mCafeList.get(0).getTotalamt();
                         }
 
                         findViews();
@@ -187,6 +193,8 @@ public class CafeChangeActivity extends BaseUserActivity {
                 holder.tvCafename.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mSelectedCafeSeq = item.getCafeseq();
                 mSelectedCafeName = item.getCafename();
+                mSelectedCafeTotal = item.getTotal();
+                mSelectedCafeTotalAmt = item.getTotalamt();
             } else {
                 holder.tvCafename.setBackgroundColor(getResources().getColor(R.color.colorWhite));
             }

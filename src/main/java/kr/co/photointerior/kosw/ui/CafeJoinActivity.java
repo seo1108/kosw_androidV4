@@ -190,6 +190,11 @@ public class CafeJoinActivity extends BaseActivity {
         query.put("user_seq", user.getUser_seq());
         query.put("cateseq", mSeledtedCateseq);
         query.put("cafeseq", mCafeseq);
+        if (null != txt_additions.getText() && !"".equals(txt_additions.getText().toString()))
+        {
+            query.put("additions", txt_additions.getText().toString());
+        }
+
 
         Call<ResponseBase> call = getCafeService().join(query);
 

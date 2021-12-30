@@ -41,7 +41,8 @@ public class Cafe extends ResponseBase {
     private String cateseq;
     @SerializedName("joindate")
     private String joindate;
-
+    @SerializedName("totalamt")
+    private String totalamt;
 
     private boolean selected;
     /**
@@ -193,6 +194,14 @@ public class Cafe extends ResponseBase {
         this.joindate = joindate;
     }
 
+    public String getTotalamt() {
+        return totalamt;
+    }
+
+    public void setTotalamt(String totalamt) {
+        this.totalamt = totalamt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -215,7 +224,8 @@ public class Cafe extends ResponseBase {
                 Objects.equals(myadditions, cafe.myadditions) &&
                 Objects.equals(cateseq, cafe.cateseq) &&
                 Objects.equals(joindate, cafe.joindate) &&
-                Objects.equals(cafetype, cafe.cafetype);
+                Objects.equals(cafetype, cafe.cafetype) &&
+                Objects.equals(totalamt, cafe.totalamt);
     }
 
     @Override
