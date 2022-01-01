@@ -194,6 +194,10 @@ public class CafeJoinActivity extends BaseActivity {
         {
             query.put("additions", txt_additions.getText().toString());
         }
+        else
+        {
+            query.put("additions", "");
+        }
 
 
         Call<ResponseBase> call = getCafeService().join(query);
